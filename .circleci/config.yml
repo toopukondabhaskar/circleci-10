@@ -3,11 +3,9 @@ jobs:
   build:
     working_directory: ~/tmp
     docker:
-      - image: ubuntu:16.04 
+      - image: circleci/ruby:2.4 
     steps:
       - checkout
-      - run: git install
-      - run: vim install 
-      - run:
-          name: Print the Current Time
-          command: date
+      - run: bundle install
+     
+     
