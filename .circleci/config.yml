@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/tmp
     docker:
-      - image: circleci/ruby:4.2.0 
+      - image: circleci/ruby:2.4 
     steps:
       - checkout
       - run: bundle install
