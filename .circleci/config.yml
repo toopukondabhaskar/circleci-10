@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tmp
     docker:
       - image: circleci/java:8 
     steps:
