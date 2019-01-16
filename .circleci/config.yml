@@ -6,6 +6,6 @@ jobs:
       - image: circleci/java:8 
     steps:
       - checkout
-      - run: sudo docker build -t /circleci-10/images/directory test .
+      - run: sudo docker build -t images/directory test .
      
      
