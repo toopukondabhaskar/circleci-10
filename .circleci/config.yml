@@ -3,9 +3,9 @@ jobs:
   build:
     working_directory: ~/tmp
     docker:
-      - image: circleci/test:16.04 
+      - image: circleci/ruby:4.2.0 
     steps:
       - checkout
-      - run: docker build -t test /circleci-10/images/directory .
+      - run: bundle install
      
      
