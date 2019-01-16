@@ -2,12 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:16.04
+      - image: circleci:node:1 
     steps:
       - checkout
-      - run:
-          name: bhaskar 
-          command: echo Hello, world.
+      - run: git install
+      - run: vim install 
       - run:
           name: Print the Current Time
           command: date
