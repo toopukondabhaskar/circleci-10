@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/yml 
+      - image: circleci/python:2.0
     steps:
       - checkout
       #- run: sudo docker build -t  test .
