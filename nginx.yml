@@ -4,7 +4,7 @@
   - name: ensure nginx is at the latest version
     apt: 
       name: nginx 
-      state: latest
+      state: present
   - name: start nginx
     service:
       name: nginx
