@@ -2,9 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/java:8 
+      - image: circleci/yml 
     steps:
       - checkout
-      - run: sudo docker build -t  test .
+      #- run: sudo docker build -t  test .
+       - run: ansible-playbook nginx.yml
      
      
