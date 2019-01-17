@@ -1,11 +1,12 @@
 version: 2
 jobs:
   build:
+    working_directory: ~tmp
     docker:
-      - image: circleci/python:2.0
+      - image: circleci/ruby:2.4
     steps:
       - checkout
       #- run: sudo docker build -t  test .
-       - run: ansible-playbook nginx.yml
-     
+       #- run: ansible-playbook nginx.yml
+       - run: bundle install
      
