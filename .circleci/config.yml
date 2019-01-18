@@ -22,14 +22,14 @@ workflows:
       - build2:
           requires:
             - build
-  schedule-workflow:
-    triggers:
-      - schedule:
-          cron: "0 * * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build
-      - build2
+  #schedule-workflow:
+    #triggers:
+      #- schedule:
+          #cron: "** * * *"
+          #filters:
+            #branches:
+              #only:
+                #- master
+    #jobs:
+      #- build
+      #- build2
