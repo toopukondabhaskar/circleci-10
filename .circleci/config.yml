@@ -19,5 +19,7 @@ workflows:
   my_workflow:
     jobs:
       - build
-      - build2
+      - build2:
+          requires:
+            - build
        
