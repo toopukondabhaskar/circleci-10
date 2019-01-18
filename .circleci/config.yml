@@ -1,51 +1,19 @@
-#version: 2
-#jobs:
-  #build:
-    #working_directory: ~/tmp
-    #docker:
-      #- image: circleci/ruby:2.4
-    #steps:
-      #- checkout
-      #- run: sudo docker build -t  test .
-       #- run: ansible-playbook nginx.yml
-      #- run: bundle install
 version: 2
 jobs:
   build:
+    #working_directory: ~/tmp
     docker:
-      - image: cibuilds/snapcraft:stable
+      - image: circleci/ruby:2.4
     steps:
       - checkout
-      - run:
-          name: "Build Snap"
-          command: snapcraft
-      - persist_to_workspace:
-          root: .
-          paths:
-            - "*.snap"
+      #- run: sudo docker build -t  test .
+       #- run: ansible-playbook nginx.yml
+      - run: bundle install
 
-  publish:
-    docker:
-      - image: cibuilds/snapcraft:stable
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: "Publish to Store"
-          command: |
-            mkdir .snapcraft
-            echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-            snapcraft push *.snap --release stable
-
-
-#workflows:
-#version: 2
-  #main:
-    #jobs:
-      #- build
-      #- publish:
-          #requires:
-            #- build
-          #filters:
-            #branches:
-              #only: master    
+workflows:
+  version: 2
+  
+  my_worklows:
+    jobs:
+      build:
+        - build
