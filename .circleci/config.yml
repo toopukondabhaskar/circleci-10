@@ -19,9 +19,9 @@ workflows:
   my-workflow:
     jobs:
       - build
-      - build2:
-          requires:
-            - build
+      - build2
+          #requires:
+            #- build
   #schedule-workflow:
     #triggers:
       #- schedule:
