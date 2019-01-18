@@ -15,5 +15,5 @@ workflows:
   
   my_workflows:
     jobs:
-      build:
-        - build
+      - build
+       
