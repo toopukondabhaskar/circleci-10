@@ -16,10 +16,19 @@ jobs:
 workflows:
   version: 2
   
-  my_workflow:
+  my-workflow:
     jobs:
       - build
       - build2:
           requires:
             - build
-       
+  schedule-workflow:
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filter:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
