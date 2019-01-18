@@ -1,13 +1,16 @@
 version: 2
 jobs:
   build:
-    #working_directory: ~/tmp
     docker:
       - image: circleci/ruby:2.4
     steps:
       - checkout
-      #- run: sudo docker build -t  test .
-       #- run: ansible-playbook nginx.yml
+      - run: bundle install
+  build2:
+    docker:
+      - image: circleci/ruby:2.4
+    steps:
+      - checkout
       - run: bundle install
 
 workflows:
@@ -16,4 +19,5 @@ workflows:
   my_workflows:
     jobs:
       - build
+      - build2
        
