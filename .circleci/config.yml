@@ -5,7 +5,8 @@ jobs:
     - image: circleci/ruby:2.4
     steps:
     - checkout
-    - run: bundle install
+    #- run: bundle install
+    - run: apt-get install nginx
   build2:
     docker:
     - image: circleci/ruby:2.4
