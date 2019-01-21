@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: latest
+    - image: dockerimages/latest
     steps:
     - checkout
     #- run: bundle install
