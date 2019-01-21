@@ -2,11 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/ruby:2.4
+    - image: circleci/java:8.0
     steps:
     - checkout
     #- run: bundle install
-    - run: apt-get install nginx
+    - run: index.html
   build2:
     docker:
     - image: circleci/ruby:2.4
