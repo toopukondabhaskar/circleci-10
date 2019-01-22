@@ -20,12 +20,12 @@ workflows:
   my_workflows:
     jobs:
       - build
-      - manual:
+      - hold:
           type: approval
           requires:
             - build
       - build2:
           requires:
-            - manual
+            - hold
 
 
