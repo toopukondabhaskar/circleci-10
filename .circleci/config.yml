@@ -23,13 +23,13 @@ workflows:
   version: 2
   my_workflow:
     jobs:
-      - build1:
+      - build:
           requires:
-            build
+            build1
       - hold:
           type: approval
           requires:
-            - build1
+            - build
       #- build2
 
 #workflows:
