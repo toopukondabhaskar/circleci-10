@@ -6,13 +6,13 @@ jobs:
     steps:
       - checkout
       - run: bundle install
-  test1:
+  build1:
     docker:
       - image: circleci/ruby:2.4
     steps:
       - checkout
       - run: bundle install
-  test2:
+  build2:
     docker:
       - image: circleci/ruby:2.4
     steps:
@@ -24,16 +24,16 @@ workflows:
   my_workflow:
     jobs:
       - build
-      - test1:
+      - build1:
           requires:
            - build
-      - test2:
+      - build2:
           requires:
-           - test1
+           - build1
       - hold:
           type: approval
           requires:
-           - test2
+           - build2
       - deploy:
           requires:
            - hold
