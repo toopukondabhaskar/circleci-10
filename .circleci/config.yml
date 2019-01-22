@@ -14,8 +14,8 @@ jobs:
       - run: bundle install
 workflows:
   version: 2
-  #my_workflow:
-  build_and_test:
+  my_workflow:
+  #build_and_test:
     jobs:
       - build
       - test
