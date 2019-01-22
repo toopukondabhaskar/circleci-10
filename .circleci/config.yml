@@ -6,7 +6,7 @@ jobs:
     steps:
     - checkout
     - run: bundle install
-  test2:
+  test1:
     docker:
     - image: circleci/ruby:2.4
     steps:
