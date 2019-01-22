@@ -2,20 +2,20 @@ version: 2
 jobs:
   build:
     docker:
-    - image: dockerimages/nginx
+    - image: circleci/ruby:2.4
     steps:
     - checkout
-    #- run: bundle install
-    - run: sudo docker run -it nginx
-  #build2:
-    #docker:
-    #- image: circleci/ruby:2.4
-    #steps:
-    #- checkout
-    #- run: bundle install
-#workflows:
-  #version: 2
+    - run: bundle install
+  test:
+    docker:
+      - image: circleci/ruby:2.4
+    steps:
+      - checkout
+      - run: bundle install
+workflows:
+  version: 2
   #my_workflow:
-    #jobs:
-    #- build
-    #- build2
+  build_and_test:
+    jobs:
+      - build
+      - test

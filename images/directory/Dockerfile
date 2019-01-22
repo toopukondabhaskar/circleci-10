@@ -16,8 +16,8 @@ RUN \
 WORKDIR /etc/nginx
 
 # Define default command.
-CMD ["nginx"]
-
+#CMD ["nginx"]
+CMD ["/bin/sh"]
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
