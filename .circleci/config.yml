@@ -2,30 +2,26 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4
+    - image: circleci/ruby:2.4
     steps:
-      - checkout
-      - run: bundle install
-  build2:
+    - checkout
+    - run: bundle install
+  test:
     docker:
-      - image: circleci/ruby:2.4
+    - image: circleci/ruby:2.4
     steps:
-      - checkout
-      - run: bundle install
-  #build2:
-    #docker:
-      #- image: circleci/ruby:2.4
-    #steps:
-      #- checkout
-      #- run: bundle install
+    - checkout
+    - run: bundle install
 
 workflows:
   version: 2
   my_workflow:
     jobs:
-      - build
-      - build2
-      #- build2
+    - build
+    - hold:
+        type: approval
+        requires:
+          - test
 
 #workflows:
   #version: 2
