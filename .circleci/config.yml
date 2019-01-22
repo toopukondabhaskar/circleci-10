@@ -12,7 +12,7 @@ jobs:
       - image: circleci/ruby:2.4
     steps:
       - checkout
-      - run: echo "i am inside build two"
+      - run: echo "i am inside build two passed"
 
 workflows:
   version: 2
