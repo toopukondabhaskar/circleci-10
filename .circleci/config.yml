@@ -26,15 +26,15 @@ workflows:
       - build
       - build1:
           requires:
-           - build
+            - build
       - build2:
           requires:
-           - build1
+            - build1
       - hold:
           type: approval
           requires:
            - build2
       - deploy:
           requires:
-           - hold
+            - hold
 
