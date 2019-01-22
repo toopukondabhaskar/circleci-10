@@ -12,12 +12,12 @@ jobs:
     steps:
       - checkout
       - run: bundle install
-  build2:
-    docker:
-      - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: bundle install
+  #build2:
+    #docker:
+      #- image: circleci/ruby:2.4
+    #steps:
+      #- checkout
+      #- run: bundle install
 
 workflows:
   version: 2
@@ -25,7 +25,7 @@ workflows:
     jobs:
       - build
       - build1
-      - build2
+      #- build2
 
 #workflows:
   #version: 2
