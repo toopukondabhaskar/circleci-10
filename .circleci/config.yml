@@ -1,26 +1,33 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: bundle install
-      - run: echo "i am inside build one "
-  build2:
-    docker:
-      - image: circleci/ruby:2.4
-    steps:
-      - checkout
-      - run: echo "i am inside build two passed"
+  test:
+  working_directory: /tmp/my-project
+       steps:
+         - run:
+             name: Deploy Master to GKE
+             command: ./script-tage.py
+#jobs:
+  #build:
+    #docker:
+      #- image: circleci/python:3
+    #steps:
+      #- checkout
+      #- run: bundle install
+      #- run: echo "i am inside build one "
+  #build2:
+    #docker:
+      #- image: circleci/ruby:2.4
+    #steps:
+      #- checkout
+      #- run: echo "i am inside build two passed"
 
-workflows:
-  version: 2
+#workflows:
+  #version: 2
   
-  my_workflows:
-    jobs:
-      - build
-      - build2
+  #my_workflows:
+    #jobs:
+      #- build
+      #- build2
       #- hold:
           #type: approval
           #requires:
