@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       #- run: bundle install
-      - run: echo "i am inside build one is runging"
+      - run: echo "i am inside build one "
   build2:
     docker:
       - image: circleci/ruby:2.4
