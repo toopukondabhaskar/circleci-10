@@ -3,11 +3,11 @@ jobs:
   test:
     docker:
       - image: circleci/python:3
-  working_directory: /tmp/my-project
-       steps:
-         - run:
-             name: Deploy Master to GKE
-             command: ./script-tage.py
+    working_directory: /tmp
+    steps:
+      - run:
+          name: Deploy Master to GKE
+          command: ./script-tage.py
 #jobs:
   #build:
     #docker:
