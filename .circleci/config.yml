@@ -2,9 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:4.2
+      - image: circleci/ruby:2.4
     steps:
-      - checkout:
+      - checkout
       - run: sudo apt-get install apache2 -y
       - store_artifacts:
           path: /root/project/artifact/artifact.zip
