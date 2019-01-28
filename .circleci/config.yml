@@ -17,8 +17,8 @@ jobs:
         - run:
             name: Deploy Over SSH
             command: |
-            echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu/circleci/project/nginx.sh"
+              echo $CIRCLE_BUILD_NUM
+              ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu/circleci/project/nginx.sh"
 workflows:
   version: 2
   workflow:
