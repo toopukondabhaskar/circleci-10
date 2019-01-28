@@ -3,13 +3,14 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4
+    working_directory: ~/beam
     steps:
       - checkout
       - run: sudo apt-get install apache2 -y
-      - run: sudo ./nginx.sh
-      - store_artifacts:
-          path: ~/project/artifact.zip
-          destination: ~/project/artifact 
+      - run: sudo apt-get install python3 -y
+      #- store_artifacts:
+          #path: ~/
+          #destination:
     deploy:
       machine:
         enabled: true
@@ -19,7 +20,7 @@ jobs:
             name: Deploy Over SSH
             command: |
               echo $CIRCLE_BUILD_NUM
-              ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu/project/nginx.sh"
+              ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "~/project/var/www/html/"
 workflows:
   version: 2
   workflow:
