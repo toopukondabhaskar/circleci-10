@@ -5,7 +5,7 @@ jobs:
       - image: circleci/ruby:4.2
     steps:
       - checkout:
-      - run: sudo apt-get install apache2
+      - run: sudo apt-get install apache2 -y
       - store_artifacts:
           path: /root/project/artifact/artifact.zip
           destination: /root/project/artifact 
