@@ -2,12 +2,38 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3
-    working_directory: /tmp
+      - image: circleci
     steps:
+      - checkout:
       - run:
-          name: Deploy Master to GKE
-          command: ./script-tage.py
+          name:
+          command: sudo apt-get install apache2
+      - store_artifacts:
+          path: /root/project/artifact/artifact.zip
+          destination: /root/project/artifact 
+    deploy:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: Deploy Over SSH
+          command: |
+            echo $CIRCLE_BUILD_NUM
+            ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu/circleci/project/nginx.sh"
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+
+   
+
+
+
 #jobs:
   #build:
     #docker:
