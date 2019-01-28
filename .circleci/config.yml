@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get install apache2 -y
-      - run: ./nginx.sh
+      - run: sudo ./nginx.sh
       - store_artifacts:
           path: ~/project/artifact.zip
           destination: ~/project/artifact 
