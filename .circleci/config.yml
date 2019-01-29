@@ -37,13 +37,13 @@ workflows:
   workflow:
     jobs:
       - build
-      - build:
+      - deploy:
           requires:
             - build
           filters:
             branches:
               only: staging
-          #context: staging
+          context: staging
       #- deploy:
           #requires:
             #- build
