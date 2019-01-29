@@ -43,7 +43,12 @@ workflows:
             branches:
               only: staging
           context: staging
-   
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master   
 
 
 #jobs:
