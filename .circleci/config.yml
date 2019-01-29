@@ -37,6 +37,9 @@ workflows:
   workflow:
     jobs:
       - build
+      - build:
+          requires:
+            - build
           filters:
             branches:
               only: staging
