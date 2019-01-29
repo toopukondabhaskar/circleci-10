@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4
-    working_directory: ~/beam
+    #working_directory:
     steps:
       - checkout
       - run: sudo apt-get install apache2 -y
@@ -20,7 +20,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu"
+            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu/circleci-10"
 workflows:
   version: 2
   workflow:
