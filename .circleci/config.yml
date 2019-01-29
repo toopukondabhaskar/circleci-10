@@ -3,11 +3,23 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4
-    working_directory: /tmp/circleci-10
+    working_directory: /tmp
     steps:
       - checkout
       - run: sudo apt-get install apache2 -y
       - run: sudo apt-get install python3 -y
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/artifact-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+      - store_artifacts:
+          path: /tmp/artifact-1/artifact-1.zip
+          destination: artifact-file
+
+      - store_artifacts:
+          path: /tmp/artifacts
       #- store_artifacts:
           #path: ~/
           #destination:
@@ -20,7 +32,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu/circleci-10"
+            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu"
 workflows:
   version: 2
   workflow:
