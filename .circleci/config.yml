@@ -26,11 +26,12 @@ jobs:
       enabled: true
     steps:
       - checkout
+      - run: sudo apt-get install apache2 -y
       - run:
           name: Deploy Over SSH
           command: |
             echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/ubuntu"
+            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
 workflows:
   version: 2
   workflow:
