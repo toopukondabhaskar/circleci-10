@@ -37,19 +37,17 @@ workflows:
   workflow:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
+      - build: 
           filters:
             branches:
               only: staging
-          context: staging
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master   
+          #context: staging
+      #- deploy:
+          #requires:
+            #- build
+          #filters:
+            #branches:
+              #only: master   
 
 
 #jobs:
