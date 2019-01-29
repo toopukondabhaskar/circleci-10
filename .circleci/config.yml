@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4
-    #working_directory:
+    working_directory: /tmp/circleci-10
     steps:
       - checkout
       - run: sudo apt-get install apache2 -y
