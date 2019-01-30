@@ -34,7 +34,7 @@ jobs:
             ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
 workflows:
   version: 2
-  workflow:
+  workflow-test:
     jobs:
       - build
       - deploy:
