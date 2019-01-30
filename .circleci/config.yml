@@ -1,11 +1,52 @@
 version: 2
 jobs:
+  deploy:
+    docker:
+    - image: circleci/ruby:2.4
+    steps:
+    - checkout
+    - run: bundle install
+  #build2:
+    #docker:
+    #- image: circleci/ruby:2.4
+    #steps:
+    #- checkout
+    #- run: bundle install
+#workflows:
+  #version: 2
+  #my_workflow:
+    #jobs:
+    #- build
+    #- build2
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - deploy-staging:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: staging
+          context: staging
+
+      - deploy-prod:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+          context: prodution
   build:
     docker:
       - image: circleci/ruby:2.4
     working_directory: /tmp/circleci-10
     steps:
       - checkout
+      - run: bundle install
       - run: sudo apt-get install apache2 -y
       - run: sudo apt-get install python3 -y
       #- run:
@@ -31,7 +72,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@3.83.218.106 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
+            ssh ubuntu@172.31.92.95 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
 workflows:
   version: 2
   workflow:
@@ -40,10 +81,21 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master
-          context: master
+        filters:
+          branches:
+            only: staging
+        context: staging
+      #- deploy:
+          #requires:
+            #- build
+        #filters:
+          #branches:
+            #only: master
+        #context: staging
+          #filters:
+            #branches:
+              #only: master
+          #context: master
       #- deploy:
           #requires:
             #- build
