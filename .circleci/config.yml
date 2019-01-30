@@ -32,18 +32,18 @@ jobs:
           command: |
             echo $CIRCLE_BUILD_NUM
             ssh ubuntu@52.91.20.223 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
-workflows:
-  version: 2
-  workflow-test:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: staging
-          context: staging
+#workflows:
+  #version: 2
+  #workflow-test:
+    #jobs:
+      #- build
+      #- deploy:
+          #requires:
+            #- build
+          #filters:
+            #branches:
+              #only: staging
+          #context: staging
       #- deploy:
           #requires:
             #- build
@@ -51,34 +51,21 @@ workflows:
             #branches:
               #only: master   
 
-
-#jobs:
-  #build:
-    #docker:
-      #- image: circleci/python:3
-    #steps:
-      #- checkout
-      #- run: bundle install
-      #- run: echo "i am inside build one "
-  #build2:
-    #docker:
-      #- image: circleci/ruby:2.4
-    #steps:
-      #- checkout
-      #- run: echo "i am inside build two passed"
-      #ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "~/project/nginx.sh"
-
-#workflows:
-  #version: 2
+workflows:
+  version: 2
   
-  #my_workflows:
-    #jobs:
-      #- build
+  my_workflows:
+    jobs:
+      - build
+      - deploy
       #- build2
-      #- hold:
-          #type: approval
-          #requires:
-            #- build
+      - hold:
+          type: approval
+          requires:
+            - build
+      - deploy:
+          requires:
+            - hold
       #- build2:
           #requires:
             #- hold
