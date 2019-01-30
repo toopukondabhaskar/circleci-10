@@ -42,8 +42,8 @@ workflows:
             - build
           filters:
             branches:
-              only: staging
-          context: staging
+              only: master
+          context: master
       #- deploy:
           #requires:
             #- build
