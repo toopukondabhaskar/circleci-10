@@ -21,12 +21,12 @@ jobs:
       #- store_artifacts:
           #path: ~/
           #destination:
-  #deploy:
-    #machine:
-      #enabled: true
-    #steps:
-      #- checkout
-      #- run: sudo apt-get install apache2 -y
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - run: sudo apt-get install apache2 -y
       #- run:
           #name: Deploy Over SSH
           #command: |
@@ -34,7 +34,7 @@ jobs:
             #ssh ubuntu@52.91.20.223 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
      
       
-      - deploy:
+      - run:
           name: conditionally run a deploy job
           command: |
             # replace this with your build/deploy check (i.e. current branch is "release")
