@@ -5,9 +5,9 @@ jobs:
       - image: circleci/ruby:2.4
     working_directory: /tmp/circleci-10
     steps:
-      - checkout
-      - run: sudo apt-get install apache2 -y
-      - run: sudo apt-get install python3 -y
+      #- checkout
+      #- run: sudo apt-get install apache2 -y
+      #- run: sudo apt-get install python3 -y
       #- run:
           #name: Creating Dummy Artifacts
           #command: |
@@ -32,6 +32,8 @@ jobs:
           #command: |
             #echo $CIRCLE_BUILD_NUM
             #ssh ubuntu@52.91.20.223 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
+     
+      
       - deploy:
           name: conditionally run a deploy job
           command: |
