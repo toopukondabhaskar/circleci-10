@@ -6,14 +6,8 @@ jobs:
     working_directory: /tmp/circleci-10
     steps:
       - checkout
-      - run: sudo apt-get install apache2 -y
+      #- run: sudo apt-get install apache2 -y
       - run: sudo apt-get install python3 -y
-      #- run:
-          #name: Creating Dummy Artifacts
-          #command: |
-            #echo "my artifact file" > /tmp/artifact-1;
-            #mkdir /tmp/artifacts;
-            #echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
       - store_artifacts:
           path: /tmp/circleci-10
           destination: /tmp/circleci-10
@@ -27,47 +21,25 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get install apache2 -y
+      #- run:
+          #name: Deploy Over SSH
+          #command: |
+            #echo $CIRCLE_BUILD_NUM
+            #ssh ubuntu@52.91.20.223 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
       - run:
-          name: Deploy Over SSH
+          name: conditionally run a deploy job
           command: |
-            echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@52.91.20.223 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
-#workflows:
-  #version: 2
-  #workflow-test:
-    #jobs:
-      #- build
-      #- deploy:
-          #requires:
-            #- build
-          #filters:
-            #branches:
-              #only: staging
-          #context: staging
-      #- deploy:
-          #requires:
-            #- build
-          #filters:
-            #branches:
-              #only: master   
-
+            curl -u ${CIRCLE_API_USER_TOKEN} \
+            -d build_parameters[CIRCLE_JOB]=deploy_docker \
+            https://circleci.com/api/v1.1/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/tree/$CIRCLE_BRANCH
 workflows:
   version: 2
-  
-  my_workflows:
+  workflow-test:
     jobs:
       - build
-      - deploy
-      #- build2
-      - hold:
-          type: approval
-          requires:
-            - build
       - deploy:
           requires:
-            - hold
-      #- build2:
-          #requires:
-            #- hold
-
-
+            - build
+          filters:
+            branches:
+              only: staging
