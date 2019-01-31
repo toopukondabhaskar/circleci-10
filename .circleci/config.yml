@@ -1,52 +1,11 @@
 version: 2
 jobs:
-  deploy:
-    docker:
-    - image: circleci/ruby:2.4
-    steps:
-    - checkout
-    - run: bundle install
-  #build2:
-    #docker:
-    #- image: circleci/ruby:2.4
-    #steps:
-    #- checkout
-    #- run: bundle install
-#workflows:
-  #version: 2
-  #my_workflow:
-    #jobs:
-    #- build
-    #- build2
-
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - deploy-staging:
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only: staging
-          context: staging
-
-      - deploy-prod:
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only: master
-          context: prodution
   build:
     docker:
       - image: circleci/ruby:2.4
     working_directory: /tmp/circleci-10
     steps:
       - checkout
-      - run: bundle install
       - run: sudo apt-get install apache2 -y
       - run: sudo apt-get install python3 -y
       #- run:
@@ -62,77 +21,36 @@ workflows:
       #- store_artifacts:
           #path: ~/
           #destination:
-  deploy:
-    machine:
-      enabled: true
-    steps:
-      - checkout
-      - run: sudo apt-get install apache2 -y
-      - run:
-          name: Deploy Over SSH
-          command: |
-            echo $CIRCLE_BUILD_NUM
-            ssh ubuntu@172.31.92.95 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
+  #deploy:
+    #machine:
+      #enabled: true
+    #steps:
+      #- checkout
+      #- run: sudo apt-get install apache2 -y
+      #- run:
+          #name: Deploy Over SSH
+          #command: |
+            #echo $CIRCLE_BUILD_NUM
+            #ssh ubuntu@52.91.20.223 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "/home/circleci/project"
+  - deploy:
+      name: conditionally run a deploy job
+      command: |
+        # replace this with your build/deploy check (i.e. current branch is "release")
+        if [[ true ]]; then
+          curl --user ${CIRCLE_API_USER_TOKEN} \
+            --data build_parameters[CIRCLE_JOB]=deploy_docker \
+            --data revision=$CIRCLE_SHA1 \
+            https://circleci.com/api/v1.1/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/tree/$CIRCLE_BRANCH
+        fi 
 workflows:
   version: 2
-  workflow:
+  workflow-test:
     jobs:
       - build
       - deploy:
           requires:
             - build
-        filters:
-          branches:
-            only: staging
-        context: staging
-      #- deploy:
-          #requires:
-            #- build
-        #filters:
-          #branches:
-            #only: master
-        #context: staging
-          #filters:
-            #branches:
-              #only: master
-          #context: master
-      #- deploy:
-          #requires:
-            #- build
-          #filters:
-            #branches:
-              #only: master   
-
-
-#jobs:
-  #build:
-    #docker:
-      #- image: circleci/python:3
-    #steps:
-      #- checkout
-      #- run: bundle install
-      #- run: echo "i am inside build one "
-  #build2:
-    #docker:
-      #- image: circleci/ruby:2.4
-    #steps:
-      #- checkout
-      #- run: echo "i am inside build two passed"
-      #ssh ubuntu@18.207.218.164 BUILD_NO="$CIRCLE_BUILD_NUM" /bin/bash < "~/project/nginx.sh"
-
-#workflows:
-  #version: 2
-  
-  #my_workflows:
-    #jobs:
-      #- build
-      #- build2
-      #- hold:
-          #type: approval
-          #requires:
-            #- build
-      #- build2:
-          #requires:
-            #- hold
-
+          filters:
+            branches:
+              only: staging
 
