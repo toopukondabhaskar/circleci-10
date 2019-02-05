@@ -21,7 +21,7 @@ jobs:
           name: Deploy to S3
           command: |
              if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-               aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
+                 aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
              elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
                  aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
              elif [ "${CIRCLE_BRANCH}" == "master" ]; then
