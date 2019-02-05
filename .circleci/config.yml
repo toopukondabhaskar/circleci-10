@@ -1,37 +1,50 @@
 version: 2
 jobs:
-  deploy:
-    working_directory: ~/project
-    docker:
-      - image: circleci/node:6.10-browsers
-    steps:
-      - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-      - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1
-            }}
-      - run:
-          name: Install aws cli
-          command: sudo apt-get -y -qq install awscli
-      - run:
-          name: Setting Signature Version 4 for S3 Request Authentication
-          command: aws configure set default.s3.N.Virginia_version s3v4
-      - run:
-          name: Deploy to S3
-          command: |
-              if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-                  aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
-              elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-                  aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
-              elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                 aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
-              fi
-workflows:
-  version: 2
-  workflow:
-    jobs:
-      - deploy
+  deployment:
+    production:
+      branch: master
+      codedeploy:
+        my-app:
+          deployment_group: production-instances
+          revision_location:
+            revision_type: S3
+            s3_location:
+              bucket: s3awscirclecidemo
+              key_pattern: apps/my-app-master-{SHORT_COMMIT}-{BUILD_NUM}
+#version: 2
+#jobs:
+  #deploy:
+    #working_directory: ~/project
+    #docker:
+      #- image: circleci/node:6.10-browsers
+    #steps:
+      #- run:
+          #name: Show current branch
+          #command: echo ${CIRCLE_BRANCH}
+      #- restore_cache:
+          #key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1
+            #}}
+      #- run:
+          #name: Install aws cli
+          #command: sudo apt-get -y -qq install awscli
+      #- run:
+          #name: Setting Signature Version 4 for S3 Request Authentication
+          #command: aws configure set default.s3.N.Virginia_version s3v4
+      #- run:
+          #name: Deploy to S3
+          #command: |
+              #if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+                  #aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
+              #elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                  #aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
+              #elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+                 #aws --region us-east-1 s3 sync ~/project s3://s3awscirclecidemo/ --delete
+              #fi
+#workflows:
+  #version: 2
+  #workflow:
+    #jobs:
+      #- deploy
 #jobs:
   #build:
     #docker:
