@@ -27,7 +27,11 @@ jobs:
              elif [ "${CIRCLE_BRANCH}" == "master" ]; then
                  aws --region us-east-1 s3 sync dist s3://project/ --delete
              fi
-
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - deploy
 #jobs:
   #build:
     #docker:
