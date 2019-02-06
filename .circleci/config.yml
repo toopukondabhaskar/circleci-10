@@ -17,6 +17,11 @@ jobs:
             s3_location:
               bucket: s3awscirclecidemo
               key_pattern: apps/my-app-master-{SHORT_COMMIT}-{BUILD_NUM}
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - deployment
 #version: 2
 #jobs:
   #deploy:
