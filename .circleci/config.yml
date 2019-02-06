@@ -1,6 +1,12 @@
 version: 2
 jobs:
   deployment:
+    docker:
+      - image: circleci/ruby:2.4
+    working_directory: /tmp/circleci-10
+    steps:
+      - checkout
+  #deployment:
     production:
       branch: master
       codedeploy:
