@@ -1,19 +1,19 @@
 version: 2
 jobs:
   deployment:
-  staging:
-    branch: master
-    codedeploy:
-      my-app:
-        application_root: /
-        revision_location:
-          revision_type: S3
-          s3_location:
-            bucket: s3awscircleci
-            key_pattern: apps/my-app-{SHORT_COMMIT}-{BUILD_NUM}
-        region: us-east-1
-        deployment_group: staging-instances
-        deployment_config: CodeDeployDefault.AllAtOnce
+    staging:
+      branch: master
+      codedeploy:
+        my-app:
+          application_root: /
+          revision_location:
+            revision_type: S3
+            s3_location:
+              bucket: s3awscircleci
+              key_pattern: apps/my-app-{SHORT_COMMIT}-{BUILD_NUM}
+          region: us-east-1
+          deployment_group: staging-instances
+          deployment_config: CodeDeployDefault.AllAtOnce
 workflows:
   version: 2
   workflow:
