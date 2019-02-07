@@ -17,7 +17,7 @@
   workflows:
     version: 2
     workflow:
-      jobs:
+      deployment:
         - deployment
 #version: 2
 #jobs:
