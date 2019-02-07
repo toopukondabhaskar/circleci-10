@@ -6,10 +6,10 @@ jobs:
     #docker:
       #- image: circleci/ruby:2.4
     #working_directory: /tmp/circleci-10
-    steps:
-      - checkout
+    #steps:
+      #- checkout
   #deployment:
-    production:
+    staging:
       branch: master
       codedeploy:
         my-app:
