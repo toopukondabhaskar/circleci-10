@@ -1,24 +1,19 @@
 version: 2
 jobs:
-  #deployment:
-    #machine:
-      #enabled: true
-    #docker:
-      #- image: circleci/ruby:2.4
-    #working_directory: /tmp/circleci-10
-    #steps:
-      #- checkout
   deployment:
-    staging:
-      branch: master
-      codedeploy:
-        my-app:
-          deployment_group: staging-instances
-          revision_location:
-            revision_type: S3
-            s3_location:
-              bucket: s3awscirclecidemo
-              key_pattern: apps/my-app-master-{SHORT_COMMIT}-{BUILD_NUM}
+  staging:
+    branch: master
+    codedeploy:
+      my-app:
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: s3awscircleci
+            key_pattern: apps/my-app-{SHORT_COMMIT}-{BUILD_NUM}
+        region: us-east-1
+        deployment_group: staging-instances
+        deployment_config: CodeDeployDefault.AllAtOnce
 workflows:
   version: 2
   workflow:
