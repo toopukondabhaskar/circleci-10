@@ -14,11 +14,11 @@
           region: us-east-1
           deployment_group: staging-instances
           deployment_config: CodeDeployDefault.AllAtOnce
-workflows:
-  version: 2
-  workflow:
-    jobs:
-      - deployment
+  workflows:
+    version: 2
+    workflow:
+      jobs:
+        - deployment
 #version: 2
 #jobs:
   #deploy:
