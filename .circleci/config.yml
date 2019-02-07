@@ -1,6 +1,8 @@
 version: 2
 jobs:
   deployment:
+    machine:
+      enabled: true
     #docker:
       #- image: circleci/ruby:2.4
     #working_directory: /tmp/circleci-10
