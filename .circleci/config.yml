@@ -1,5 +1,5 @@
 #version: 2
-#jobs:
+jobs:
   deployment:
     staging:
       branch: master
@@ -17,8 +17,8 @@
   workflows:
     version: 2
     workflow:
-      deployment:
-        - deployment
+      jobs:
+       - deployment
 #version: 2
 #jobs:
   #deploy:
